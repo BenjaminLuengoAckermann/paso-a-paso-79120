@@ -5,7 +5,8 @@ import {
   HttpErrorResponse,
   HttpParams
 } from '@angular/common/http';
-import { of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { ArticuloFamilia } from './models/articulo-familia';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class ArticulosFamiliasService {
       'https://labsys.frc.utn.edu.ar:8443/api/ArticulosFamilias/';
   }
 
-  get() {
-    return this.httpClient.get(this.resourceUrl);
+  get(): Observable<ArticuloFamilia[]> {
+    return this.httpClient.get<ArticuloFamilia[]>(this.resourceUrl);
   }
 }
