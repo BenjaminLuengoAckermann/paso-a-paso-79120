@@ -1,23 +1,26 @@
-<h3>{{Titulo}}</h3>
-<div>
-  <table class="table table-bordered table-striped">
-    <thead>
-      <tr>
-        <th class="text-center"> ID Articulo Familia </th>
-        <th class="text-center"> Nombre </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item for Items">
-        <td>{{item.IdArticuloFamilia}}</td>
-        <td>{{item.Nombre | uppercase}}</td>
-      </tr>
+<div class='tituloPagina'>
+  <h3>{{Titulo}}</h3>
+</div>
 
-
-
-    </tbody>
-
-  </table>
-
-
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-10">
+      <table class="table table-hover table-sm table-bordered table-striped">
+        <thead>
+          <tr>
+            <th class="text-center">Id Articulo Familia</th>
+            <th class="text-center">Nombre</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of Items">
+            <td>{{item.IdArticuloFamilia}}</td>
+            <td>{{item.Nombre | uppercase}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-1"></div>
+  </div>
 </div>
