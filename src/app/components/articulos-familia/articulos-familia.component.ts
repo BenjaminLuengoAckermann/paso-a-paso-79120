@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ArticuloFamilia } from '../models/articulo-familia';
-import { MockArticulosFamiliasService } from '../mock-articulos-familias.service';
-import { ArticulosFamiliasService } from '../articulos-familias.service';
+import { ArticuloFamilia } from '../../models/articulo-familia';
+import { MockArticulosFamiliasService } from '../../services/mock-articulos-familias.service';
+import { ArticulosFamiliasService } from '../../services/articulos-familias.service';
 
 @Component({
   selector: 'app-articulos-familia',

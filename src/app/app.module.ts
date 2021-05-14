@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HelloComponent } from './hello.component';
-import { InicioComponent } from './inicio/inicio.component';
-import { ArticulosFamiliaComponent } from './articulos-familia/articulos-familia.component';
-import { MockArticulosFamiliasService } from './mock-articulos-familias.service';
+import { InicioComponent } from './components/inicio/inicio.component';
+import { ArticulosFamiliaComponent } from './components/articulos-familia/articulos-familia.component';
+import { MockArticulosFamiliasService } from './services/mock-articulos-familias.service';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({

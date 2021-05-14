@@ -6,7 +6,7 @@ import {
   HttpParams
 } from '@angular/common/http';
 import { of, Observable } from 'rxjs';
-import { ArticuloFamilia } from './models/articulo-familia';
+import { ArticuloFamilia } from '../models/articulo-familia';
 
 @Injectable({
   providedIn: 'root'
