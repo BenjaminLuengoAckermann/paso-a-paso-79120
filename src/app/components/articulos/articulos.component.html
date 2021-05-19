@@ -1,6 +1,6 @@
 <h3>{{Titulo}} <small>{{TituloAccionABMC[AccionABMC]}} </small></h3>
 
-<form name="FormBusqueda" class="bg-ligth">
+<form name="FormBusqueda" [formGroup]="FormBusqueda" class="bg-ligth" *ngIf="AccionABMC=='L'">
   <div class="form-group row">
     <label class="col-form-label col-sm-2 offset-sm-1">
     Nombre: 
@@ -32,7 +32,7 @@
 
 <!-- Tabla -->
 
-<div id="divTablaResultados">
+<div id="divTablaResultados" *ngIf="AccionABMC == 'L' && Items?.length >0">
   <table class="table table-bordered table-striped">
     <thead>
       <tr>
@@ -97,14 +97,14 @@
 
 
 <!-- No se encontraron registros -->
-<div id="divMsjFoRmBusqueda" class="alert alert-info">
+<div id="divMsjFoRmBusqueda" class="alert alert-info" *ngIf="AccionABMC == 'L' && Items?.length == 0">
   <i class="fas fa-exclamation-sign"></i>{{Mensajes['SD']}}
   <!-- texto: No se encontraron registros -->
 </div>
 
 <!-- Registro en Alta, Modificacion o Consulta -->
-<form name="FormRegistro">
-  <fieldset>
+<form name="FormRegistro" [formGroup]="FormRegistro" class="bg-light" *ngIf="AccionABMC != 'L'">
+  <fieldset [disabled]="AccionABMC == 'C'">
     <!-- Campo nombre -->
     <div class="form-group row">
       <label class="col-form-label col-sm-2 offset-sm-2" for="Nombre">
@@ -112,7 +112,7 @@
       </label>
 
       <div class="col-sm-6">
-        <input type="text" name="Nombre" class="form-control">
+        <input type="text" formControlName="Nombre" class="form-control">
       </div>
     </div>
 
@@ -123,18 +123,18 @@
       </label>
 
       <div class="col-sm-6">
-        <input type="text" name="Precio" class="form-control">
+        <input type="text" formControlName="Precio" class="form-control">
       </div>
     </div>
 
-    <!-- Campo stcok -->
+    <!-- Campo stock -->
     <div class="form-group row">
       <label class="col-form-label col-sm-2 offset-sm-2" for="Stock">
         Stock <span class="text-danger"> * </span>
       </label>
 
       <div class="col-sm-6">
-        <input type="text" name="Stock" class="form-control">
+        <input type="text" formControlName="Stock" class="form-control">
       </div>
     </div>
 
@@ -145,7 +145,7 @@
       </label>
 
       <div class="col-sm-6">
-        <input type="text" name="CodigoDeBarra" class="form-control">
+        <input type="text" formControlName="CodigoDeBarra" class="form-control">
       </div>
     </div>
 
@@ -157,7 +157,7 @@
 
       <div class="col-sm-6">
         <select name="IdArticuloFamilia" class="form-control">
-          <option *ngFor = "let opt of Familias">
+          <option *ngFor = "let opt of Familias" [ngValue]="opt.IdArticuloFamilia">
             {{opt.Nombre}}
           </option>
         </select>
@@ -171,7 +171,7 @@
       </label>
 
       <div class="col-sm-6">
-        <input type="text" name="FechaAlta" class="form-control">
+        <input type="text" formControlName="FechaAlta" class="form-control">
       </div>
     </div>
 
@@ -182,7 +182,7 @@
 
       <div class="col-sm-6">
         <select name="Activo" [attr.disabled]="true" class="form-control">
-          <option *ngFor="let opt of OpcionesActivo">
+          <option *ngFor="let opt of OpcionesActivo" [ngValue]="opt.Id">
             {{opt.Nombre}}
           </option>
         </select>
@@ -192,18 +192,19 @@
 
   <!-- Botones Grabar, Cancelar y Volver -->
   <div class="row justify-content-center">
-    <button type="button" class="btn btn-primary" (click)="Grabar()">
+    <button type="button" class="btn btn-primary" (click)="Grabar()"
+    *ngIf="AccionABMC == 'A' || AccionABMC == 'M'">
       <i class="fas fa-check"></i> Grabar
     </button>
   </div>
 
   <button type="button" class="btn btn-primary" (click)="Volver()">
-      <i class="fas fa-undo"></i> Volver/Cancelar
+      <i class="fas fa-undo"></i> {{AccionABMC == 'A' || AccionABMC == 'M' ? 'Cancelar' : 'Volver'}}
     </button>
   </div>
 
   <!-- Texto: Revisar los datos ingresados -->
-  <div id="divMsjFormRegistro" class="row alert alert-danger">
+  <div id="divMsjFormRegistro" class="row alert alert-danger" *ngIf="false">
     <i class="fas fa-exclamation-sign"></i> {{Mensajes['RD']}}
   </div>
 

@@ -14,11 +14,14 @@ import { MenuComponent } from './components/menu/menu.component';
 import { ArticulosComponent } from './components/articulos/articulos.component';
 import { MockArticulosServiciosService } from './services/mock-articulos-servicios.service';
 
+import { ReactiveFormsModule } from '@angular/forms';
+
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', redirectTo: '/inicio', pathMatch: 'full' },
       { path: 'inicio', component: InicioComponent },
@@ -37,7 +40,11 @@ import { MockArticulosServiciosService } from './services/mock-articulos-servici
   bootstrap: [AppComponent],
   providers: [
     MockArticulosFamiliasService,
-    { provide: APP_BASE_HREF, useValue: '/', providers: [MockArticulosServiciosService] }
+    {
+      provide: APP_BASE_HREF,
+      useValue: '/',
+      providers: [MockArticulosServiciosService]
+    }
   ]
 })
 export class AppModule {}

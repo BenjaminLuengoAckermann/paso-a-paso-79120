@@ -3,6 +3,7 @@ import { Articulo } from '../../models/articulo';
 import { ArticuloFamilia } from '../../models/articulo-familia';
 import { MockArticulosServiciosService } from '../../services/mock-articulos-servicios.service';
 import { MockArticulosFamiliasService } from '../../services/mock-articulos-familias.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-articulos',
@@ -38,12 +39,32 @@ export class ArticulosComponent implements OnInit {
     { Id: false, Nombre: 'NO' }
   ];
 
+  FormBusqueda: FormGroup;
+  FormRegistro: FormGroup;
+
   constructor(
+    public formBuilder: FormBuilder,
     private articulosService: MockArticulosServiciosService,
     private articulosFamiliasService: MockArticulosFamiliasService
   ) {}
 
   ngOnInit() {
+    this.FormBusqueda = this.formBuilder.group({
+      Nombre: [null],
+      Activo: [null]
+    });
+
+    this.FormRegistro = this.formBuilder.group({
+      IdArticulo: [null],
+      Nombre: [null],
+      Precio: [null],
+      Stock: [null],
+      CodigoDeBarra: [null],
+      IdArticuloFamilia: [null],
+      FechaAlta: [null],
+      Activo: [false]
+    });
+
     this.GetFamiliasArticulos();
   }
 
@@ -55,13 +76,20 @@ export class ArticulosComponent implements OnInit {
 
   Agregar() {
     this.AccionABMC = 'A';
+    this.FormRegistro.reset({ Activo: true, IdArticulo: 0 });
   }
 
   Buscar() {
-    this.articulosService.get('', null, this.Pagina).subscribe((res: any) => {
-      this.Items = res.Items;
-      this.RegistrosTotal = res.RegistrosTotal;
-    });
+    this.articulosService
+      .get(
+        this.FormBusqueda.value.Nombre,
+        this.FormBusqueda.value.Activo,
+        this.Pagina
+      )
+      .subscribe((res: any) => {
+        this.Items = res.Items;
+        this.RegistrosTotal = res.RegistrosTotal;
+      });
   }
 
   BuscarPorId(Dto, AccionABMC) {
