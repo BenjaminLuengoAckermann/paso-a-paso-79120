@@ -1,2 +1,5 @@
 /* Add application styles & imports to this file! */
 @import '~bootstrap/dist/css/bootstrap.min.css';
+body {
+  background-color: rgb(241, 243, 247);
+}
