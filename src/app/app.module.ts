@@ -40,12 +40,9 @@ import { ArticulosService } from './services/articulos.service';
   ],
   bootstrap: [AppComponent],
   providers: [
-    MockArticulosFamiliasService,
     {
       provide: APP_BASE_HREF,
-      useValue: '/',
-      providers: [MockArticulosServiciosService],
-      providers: [ArticulosService]
+      useValue: '/'
     }
   ]
 })
