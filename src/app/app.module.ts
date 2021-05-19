@@ -45,7 +45,6 @@ import { ArticulosService } from './services/articulos.service';
       provide: APP_BASE_HREF,
       useValue: '/',
       providers: [MockArticulosServiciosService],
-      providers: [ArticulosServiceService],
       providers: [ArticulosService]
     }
   ]
