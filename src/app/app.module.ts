@@ -15,6 +15,7 @@ import { ArticulosComponent } from './components/articulos/articulos.component';
 import { MockArticulosServiciosService } from './services/mock-articulos-servicios.service';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { ArticulosService } from './services/articulos.service';
 
 @NgModule({
   imports: [
@@ -43,7 +44,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     {
       provide: APP_BASE_HREF,
       useValue: '/',
-      providers: [MockArticulosServiciosService]
+      providers: [MockArticulosServiciosService],
+      providers: [ArticulosServiceService],
+      providers: [ArticulosService]
     }
   ]
 })

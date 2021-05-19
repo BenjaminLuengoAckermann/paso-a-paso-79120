@@ -4,6 +4,8 @@ import { ArticuloFamilia } from '../../models/articulo-familia';
 import { MockArticulosServiciosService } from '../../services/mock-articulos-servicios.service';
 import { MockArticulosFamiliasService } from '../../services/mock-articulos-familias.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ArticulosServiceService } from '../../services/articulos-service.service';
+import { ArticulosFamiliasService } from '../../services/articulos-familias.service';
 
 @Component({
   selector: 'app-articulos',
@@ -44,8 +46,10 @@ export class ArticulosComponent implements OnInit {
 
   constructor(
     public formBuilder: FormBuilder,
-    private articulosService: MockArticulosServiciosService,
-    private articulosFamiliasService: MockArticulosFamiliasService
+    //private articulosService: MockArticulosServiciosService,
+    //private articulosFamiliasService: MockArticulosFamiliasService
+    private articulosService: ArticulosServiceService,
+    private articulosFamiliasService: ArticulosFamiliasService
   ) {}
 
   ngOnInit() {
@@ -74,13 +78,18 @@ export class ArticulosComponent implements OnInit {
     });
   }
 
+  GetArticuloFamiliaNombre(id){
+    var Nombre = this.Familias.find(x => x.IdArticuloFamilia === id)?.Nombre;
+    return Nombre;
+  }
+
   Agregar() {
     this.AccionABMC = 'A';
     this.FormRegistro.reset({ Activo: true, IdArticulo: 0 });
   }
 
   Buscar() {
-    this.articulosService
+     this.articulosService
       .get(
         this.FormBusqueda.value.Nombre,
         this.FormBusqueda.value.Activo,
@@ -94,7 +103,17 @@ export class ArticulosComponent implements OnInit {
 
   BuscarPorId(Dto, AccionABMC) {
     window.scroll(0, 0); //Inicio del Scroll
-    this.AccionABMC = AccionABMC;
+
+    this.articulosService.getById(Dto.IdArticulo).subscribe((res: any) => {
+      const itemCopy = { ...res }; //copia para no modificar array del mock
+
+      // Formateo la fecha de  ISO 8061 a string ddMMyyyy
+      var arrFecha = itemCopy.FechaAlta.substr(0, 10).split('-');
+      itemCopy.FechaAlta = arrFecha[2] + '/' + arrFecha[1] + '/' + arrFecha[0];
+
+      this.FormRegistro.patchValue(itemCopy);
+      this.AccionABMC = AccionABMC;
+    });
   }
 
   Consultar(Dto) {
@@ -110,8 +129,35 @@ export class ArticulosComponent implements OnInit {
   }
 
   Grabar() {
-    alert('Registro grabado');
-    this.Volver();
+    // Copiamos los datos del formBuilder
+    const itemCopy = { ...this.FormRegistro.value };
+
+    // Convertimos fecha a ISO
+    var arrFecha = itemCopy.FechaAlta.substr(0, 10).split('/');
+    if (arrFecha.length == 3) {
+      itemCopy.FechaAlta = new Date(
+        arrFecha[2],
+        arrFecha[1] - 1,
+        arrFecha[0]
+      ).toISOString();
+    }
+
+    if (this.AccionABMC == 'A') {
+      this.articulosService.post(itemCopy).subscribe((res: any) => {
+        this.Volver();
+        alert('Registro agregado correctamente');
+        this.Buscar();
+      });
+    } else {
+      // Modificar put
+      this.articulosService
+        .put(itemCopy.IdArticulo, itemCopy)
+        .subscribe((res: any) => {
+          this.Volver();
+          alert('Registro modificado correctamente');
+          this.Buscar();
+        });
+    }
   }
 
   ActivarDesactivar(Dto) {
@@ -121,7 +167,9 @@ export class ArticulosComponent implements OnInit {
         'este registro?'
     );
     if (resp == true) {
-      alert('Registro activado/desactivado!');
+      this.articulosService
+        .delete(Dto.IdArticulo)
+        .subscribe((res: any) => this.Buscar());
     }
   }
 

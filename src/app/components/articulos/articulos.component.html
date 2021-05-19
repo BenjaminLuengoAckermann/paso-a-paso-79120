@@ -38,6 +38,7 @@
       <tr>
         <th class="text-center"> Nombre </th>
         <th class="text-center"> Precio </th>
+        <th class="text-center"> Familia</th>
         <th class="text-center"> Stock </th>
         <th class="text-center"> Fecha de Alta </th>
         <th class="text-center"> Activo </th>
@@ -49,6 +50,7 @@
       <tr *ngFor="let item for Items">
         <td> {{item.Nombre | uppercase}}</td>
         <td class="text-right"> {{item.Precio | currency}}</td>
+        <td> {{GetArticuloFamiliaNombre(item.IdArticuloFamilia)}}</td>
         <td class="text-right"> {{item.Stock}}</td>
         <td> {{item.FechaAlta | date:'dd/MM/yyyy'}}</td>
         <td> {{item.Activo ? 'SI' : 'NO'}}</td>
