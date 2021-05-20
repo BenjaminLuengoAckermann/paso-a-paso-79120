@@ -115,9 +115,12 @@
       </label>
 
       <div class="col-sm-6">
-        <input type="text" formControlName="Nombre" class="form-control">
-        <span class="text-danger" *ngIf="FormRegistro.controls.Nombre.errors && FormRegistro.controls-Nombre.errors.required">
+        <input type="text" formControlName="Nombre" class="form-control text-uppercase">
+        <span class="text-danger" *ngIf="FormRegistro.controls.Nombre.errors?.required">
           Dato requerido
+        </span>
+        <span class="text-danger" *ngIf="FormRegistro.controls.Nombre.errors?.maxlength">
+          Dato texto, maximo 55 caracteres
         </span>
       </div>
     </div>
@@ -130,7 +133,10 @@
 
       <div class="col-sm-6">
         <input type="text" formControlName="Precio" class="form-control">
-        <span class="text-danger" *ngIf="FormRegistro.controls.Nombre.errors && FormRegistro.controls-Nombre.errors.required">
+        <span class="text-danger" *ngIf="FormRegistro.controls.Precio.errors?.pattern">
+          Dato numerico, 1 a 7 digitos
+        </span>
+        <span class="text-danger" *ngIf="FormRegistro.controls.Precio.errors?.required">
           Dato requerido
         </span>
       </div>
@@ -144,7 +150,10 @@
 
       <div class="col-sm-6">
         <input type="text" formControlName="Stock" class="form-control">
-        <span class="text-danger" *ngIf="FormRegistro.controls.Nombre.errors && FormRegistro.controls-Nombre.errors.required">
+        <span class="text-danger" *ngIf="FormRegistro.controls.Stock.errors?.pattern">
+          Dato numerico, 1 a 10 digitos
+        </span>
+        <span class="text-danger" *ngIf="FormRegistro.controls.Stock.errors?.required">
           Dato requerido
         </span>
       </div>
@@ -158,7 +167,10 @@
 
       <div class="col-sm-6">
         <input type="text" formControlName="CodigoDeBarra" class="form-control">
-        <span class="text-danger" *ngIf="FormRegistro.controls.Nombre.errors && FormRegistro.controls-Nombre.errors.required">
+        <span class="text-danger" *ngIf="FormRegistro.controls.CodigoDeBarra.errors?.pattern">
+          Dato fecha, formato dd/mm/aaaa
+        </span>
+        <span class="text-danger" *ngIf="FormRegistro.controls.CodigoDeBarra.errors?.required">
           Dato requerido
         </span>
       </div>
@@ -176,7 +188,7 @@
             {{opt.Nombre}}
           </option>
         </select>
-        <span class="text-danger" *ngIf="FormRegistro.controls.Nombre.errors && FormRegistro.controls-Nombre.errors.required">
+        <span class="text-danger" *ngIf="FormRegistro.controls.IdArticuloFamilia.errors?.required">
           Dato requerido
         </span>
       </div>
@@ -190,7 +202,7 @@
 
       <div class="col-sm-6">
         <input type="text" formControlName="FechaAlta" class="form-control">
-        <span class="text-danger" *ngIf="FormRegistro.controls.Nombre.errors && FormRegistro.controls-Nombre.errors.required">
+        <span class="text-danger" *ngIf="FormRegistro.controls.FechaAlta.errors?.required">
           Dato requerido
         </span>
       </div>
@@ -224,7 +236,7 @@
   </div>
 
   <!-- Texto: Revisar los datos ingresados -->
-  <div id="divMsjFormRegistro" class="row alert alert-danger" *ngIf="false">
+  <div id="divMsjFormRegistro" class="row alert alert-danger" *ngIf="FormRegistro.invalid">
     <i class="fas fa-exclamation-sign"></i> {{Mensajes['RD']}}
   </div>
 
