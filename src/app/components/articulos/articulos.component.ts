@@ -84,6 +84,8 @@ export class ArticulosComponent implements OnInit {
   }
 
   Agregar() {
+    this.submitted = false;
+    this.FormRegistro.markAsUntouched();
     this.AccionABMC = 'A';
     this.FormRegistro.reset({ Activo: true, IdArticulo: 0 });
   }
@@ -121,6 +123,8 @@ export class ArticulosComponent implements OnInit {
   }
 
   Modificar(Dto) {
+    this.submitted = false;
+    this.FormRegistro.markAsUntouched();
     if (!Dto.Activo) {
       alert('No puede modificarse un registro inactivo');
       return;
