@@ -85,7 +85,8 @@
         <span class="label label-default"> Registros: {{RegistrosTotal}}</span>
       </div>
       <div class="col text-center">
-        Directiva paginador aqui
+        <ngb-pagination [(page)]="Pagina" (pageChange)="Buscar()" [pageSize]="10" [maxSize]="10"
+          [collectionSize]="RegistrosTotal"></ngb-pagination>
       </div>
       <div class="col text-right">
         <button type="button" class="btn btn-primary" (click)="ImprimirListado()">
@@ -115,6 +116,9 @@
 
       <div class="col-sm-6">
         <input type="text" formControlName="Nombre" class="form-control">
+        <span class="text-danger" *ngIf="FormRegistro.controls.Nombre.errors && FormRegistro.controls-Nombre.errors.required">
+          Dato requerido
+        </span>
       </div>
     </div>
 
@@ -126,6 +130,9 @@
 
       <div class="col-sm-6">
         <input type="text" formControlName="Precio" class="form-control">
+        <span class="text-danger" *ngIf="FormRegistro.controls.Nombre.errors && FormRegistro.controls-Nombre.errors.required">
+          Dato requerido
+        </span>
       </div>
     </div>
 
@@ -137,6 +144,9 @@
 
       <div class="col-sm-6">
         <input type="text" formControlName="Stock" class="form-control">
+        <span class="text-danger" *ngIf="FormRegistro.controls.Nombre.errors && FormRegistro.controls-Nombre.errors.required">
+          Dato requerido
+        </span>
       </div>
     </div>
 
@@ -148,6 +158,9 @@
 
       <div class="col-sm-6">
         <input type="text" formControlName="CodigoDeBarra" class="form-control">
+        <span class="text-danger" *ngIf="FormRegistro.controls.Nombre.errors && FormRegistro.controls-Nombre.errors.required">
+          Dato requerido
+        </span>
       </div>
     </div>
 
@@ -163,6 +176,9 @@
             {{opt.Nombre}}
           </option>
         </select>
+        <span class="text-danger" *ngIf="FormRegistro.controls.Nombre.errors && FormRegistro.controls-Nombre.errors.required">
+          Dato requerido
+        </span>
       </div>
     </div>
 
@@ -174,6 +190,9 @@
 
       <div class="col-sm-6">
         <input type="text" formControlName="FechaAlta" class="form-control">
+        <span class="text-danger" *ngIf="FormRegistro.controls.Nombre.errors && FormRegistro.controls-Nombre.errors.required">
+          Dato requerido
+        </span>
       </div>
     </div>
 

@@ -16,6 +16,7 @@ import { MockArticulosServiciosService } from './services/mock-articulos-servici
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { ArticulosService } from './services/articulos.service';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { ArticulosService } from './services/articulos.service';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    NgbPaginationModule,
     RouterModule.forRoot([
       { path: '', redirectTo: '/inicio', pathMatch: 'full' },
       { path: 'inicio', component: InicioComponent },

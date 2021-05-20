@@ -60,12 +60,12 @@ export class ArticulosComponent implements OnInit {
 
     this.FormRegistro = this.formBuilder.group({
       IdArticulo: [null],
-      Nombre: [null],
-      Precio: [null],
-      Stock: [null],
-      CodigoDeBarra: [null],
-      IdArticuloFamilia: [null],
-      FechaAlta: [null],
+      Nombre: [null, [Validators.required]],
+      Precio: [null, [Validators.required]],
+      Stock: [null, [Validators.required]],
+      CodigoDeBarra: [null, [Validators.required]],
+      IdArticuloFamilia: [null, [Validators.required]],
+      FechaAlta: [null, [Validators.required],
       Activo: [false]
     });
 
@@ -129,6 +129,11 @@ export class ArticulosComponent implements OnInit {
   }
 
   Grabar() {
+
+    if(this.FormRegistro.invalid)
+    {
+      return;
+    }
     // Copiamos los datos del formBuilder
     const itemCopy = { ...this.FormRegistro.value };
 
